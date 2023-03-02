@@ -1,10 +1,21 @@
-public class Patient {
+public class Patient extends Person {
     private String dateOfBirth;
     private String martialStatus;
     private String[] pastDiseases;
-    private String[] appointments;
+    private Appointment[] appointments;
 
-    public Patient(String dateOfBirth, String martialStatus, String[] pastDiseases, String[] appointments) {
+    public Patient() {}
+
+    public Patient(String dateOfBirth, String martialStatus, String[] pastDiseases, Appointment[] appointments) {
+        this.dateOfBirth = dateOfBirth;
+        this.martialStatus = martialStatus;
+        this.pastDiseases = pastDiseases;
+        this.appointments = appointments;
+    }
+
+    public Patient(String id, String name, double age, String gender, String dateOfBirth, String martialStatus,
+            String[] pastDiseases, Appointment[] appointments) {
+        super(id, name, age, gender);
         this.dateOfBirth = dateOfBirth;
         this.martialStatus = martialStatus;
         this.pastDiseases = pastDiseases;
@@ -35,11 +46,11 @@ public class Patient {
         this.pastDiseases = pastDiseases;
     }
 
-    public String[] getAppointments() {
+    public Appointment[] getAppointments() {
         return appointments;
     }
 
-    public void setAppointments(String[] appointments) {
+    public void setAppointments(Appointment[] appointments) {
         this.appointments = appointments;
     }
 }

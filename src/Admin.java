@@ -1,4 +1,4 @@
-public class Admin {
+public class Admin extends Person {
     private String designation;
     private String department;
 
@@ -7,7 +7,8 @@ public class Admin {
         this.department = department;
     }
 
-    public Admin(String designation, String department, String id, String name, double age, String gender) {
+    public Admin(String id, String name, double age, String gender, String designation, String department) {
+        super(id, name, age, gender);
         this.designation = designation;
         this.department = department;
     }

@@ -1,18 +1,28 @@
-public class Doctor {
+
+public class Doctor extends Person {
     private String[] specialization;
     private double experience;
     private String designation;
-    private String[] appointments;
+    private Appointment[] appointments;
 
-    public String[] getSpecialization() {
-        return specialization;
-    }
-
-    public Doctor(String[] specialization, double experience, String designation, String[] appointments) {
+    public Doctor(String[] specialization, double experience, String designation, Appointment[] appointments) {
         this.specialization = specialization;
         this.experience = experience;
         this.designation = designation;
         this.appointments = appointments;
+    }
+
+    public Doctor(String id, String name, double age, String gender, String[] specialization, double experience,
+            String designation, Appointment[] appointments) {
+        super(id, name, age, gender);
+        this.specialization = specialization;
+        this.experience = experience;
+        this.designation = designation;
+        this.appointments = appointments;
+    }
+
+    public String[] getSpecialization() {
+        return specialization;
     }
 
     public void setSpecialization(String[] specialization) {
@@ -35,11 +45,11 @@ public class Doctor {
         this.designation = designation;
     }
 
-    public String[] getAppointments() {
+    public Appointment[] getAppointments() {
         return appointments;
     }
 
-    public void setAppointments(String[] appointments) {
+    public void setAppointments(Appointment[] appointments) {
         this.appointments = appointments;
     }
 }

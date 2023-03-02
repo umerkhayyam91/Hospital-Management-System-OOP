@@ -4,6 +4,10 @@ public class Person {
     private double age;
     private String gender;
 
+    Person() {
+
+    }
+
     public Person(String id, String name, double age, String gender) {
         this.id = id;
         this.name = name;
