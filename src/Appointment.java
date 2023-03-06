@@ -11,6 +11,16 @@ public class Appointment {
         this.status = status;
     }
 
+    public void submitAppointment(Doctor[] doctors, Patient[] patients,
+            int doctorAppointmentIndex,
+            int patientAppointmentIndex) {
+        Appointment[] docsAppointments = doctors[this.doctorIndex].getAppointments();
+        Appointment[] patAppointments = patients[this.patientIndex].getAppointments();
+        docsAppointments[doctorAppointmentIndex] = Appointment.this;
+        patAppointments[patientAppointmentIndex] = Appointment.this;
+        System.out.println("Your appointment has been submitted!!");
+    }
+
     public int getDoctorIndex() {
         return doctorIndex;
     }

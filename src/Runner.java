@@ -143,16 +143,7 @@ public class Runner {
 
         // submit appointment
         Appointment newAppointment = new Appointment(docIndex, 0, time, false);
-        submitAppointment(newAppointment, doctorAppointmentIndex, patientAppointmentIndex);
-    }
-
-    public static void submitAppointment(Appointment appointment, int doctorAppointmentIndex,
-            int patientAppointmentIndex) {
-        Appointment[] docsAppointments = doctors[appointment.getDoctorIndex()].getAppointments();
-        Appointment[] patAppointments = patients[appointment.getPatientIndex()].getAppointments();
-        docsAppointments[doctorAppointmentIndex] = appointment;
-        patAppointments[patientAppointmentIndex] = appointment;
-        System.out.println("Your appointment has been submitted!!");
+        newAppointment.submitAppointment(doctors, patients, doctorAppointmentIndex, patientAppointmentIndex);
     }
 
     public static int checkDoctorBandwidth(int docIndex) {
