@@ -1,19 +1,23 @@
 
 public class Doctor extends Person {
-    private String[] specialization;
-    private double experience;
     private String designation;
+    private double experience;
+    private String[] specialization;
     private Appointment[] appointments;
 
-    public Doctor(String[] specialization, double experience, String designation, Appointment[] appointments) {
-        this.specialization = specialization;
-        this.experience = experience;
+    public Doctor() {
+    }
+
+    public Doctor(String designation, double experience, String[] specialization, Appointment[] appointments) {
         this.designation = designation;
+        this.experience = experience;
+        this.specialization = specialization;
         this.appointments = appointments;
     }
 
-    public Doctor(String id, String name, double age, String gender, String[] specialization, double experience,
-            String designation, Appointment[] appointments) {
+    public Doctor(String id, String name, double age, String gender, String designation, double experience,
+            String[] specialization,
+            Appointment[] appointments) {
         super(id, name, age, gender);
         this.specialization = specialization;
         this.experience = experience;
