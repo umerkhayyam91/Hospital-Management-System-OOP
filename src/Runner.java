@@ -19,7 +19,7 @@ public class Runner {
 
         // Patient
         String[] pastDisease = new String[5];
-        patients[0] = new Patient("p001", "Hamza Shakeel", 25, "male", "8/01/1998", "single", pastDisease, apointments);
+        patients[0] = new Patient("p001", "H", 25, "male", "8/01/1998", "single", pastDisease, apointments);
         patients[1] = new Patient("d002", "Ahmad Ali", 23, "male", "20/01/1998", "single", pastDisease, apointments);
 
         // Admins
@@ -60,23 +60,7 @@ public class Runner {
                     }
                 }
             } else if (value == 2) {
-                System.out.println("\n---->Patient's Menu<----");
-                System.out.println("Please select from the following menu");
-                System.out.println("1. Book an appointment\n2. See all appointments\n3. Exit");
-                int y = 0;
-                while (y < 1 || y > 3) {
-                    System.out.print("Enter from 1-3: ");
-                    y = input.nextInt();
-                    if (y < 1 || y > 3) {
-                        System.out.println("Value out of range, please enter from (1-3)");
-                    } else if (y == 1) {
-                        bookAppointment();
-                    } else if (y == 2) {
-                        seeAllAppointments();
-                    } else if (y == 3) {
-                        break;
-                    }
-                }
+                patientMenu();
             } else if (value == 3) {
                 System.out.println("\n---->Admin's Menu<----");
                 System.out.println("Please select from the following menu");
@@ -113,102 +97,28 @@ public class Runner {
 
     }
 
-    public static void bookAppointment() {
-        System.out.print("Please enter the name of the doctor: ");
-        String name = input.next();
-        int docIndex = searchDoctor(name);
-        while (docIndex == -1) {
-            System.out.println("Doctor not found! Please try again");
-            System.out.print("Please enter the name of the doctor: ");
-            String newName = input.next();
-            docIndex = searchDoctor(newName);
-        }
-
-        System.out.println("Enter time (HH:MM:a): ");
-        String time = input.next();
-
-        int patientAppointmentIndex = checkPatientBandwidth();
-
-        if (patientAppointmentIndex == -1) {
-            System.out.println("You do not have enought bandwidth!");
-            return;
-        }
-
-        int doctorAppointmentIndex = checkDoctorBandwidth(docIndex);
-
-        if (doctorAppointmentIndex == -1) {
-            System.out.println("Doctor do not have enought bandwidth!");
-            return;
-        }
-
-        // submit appointment
-        Appointment newAppointment = new Appointment(docIndex, 0, time, false);
-        newAppointment.submitAppointment(doctors, patients, doctorAppointmentIndex, patientAppointmentIndex);
-    }
-
-    public static int checkDoctorBandwidth(int docIndex) {
-        Doctor doc = doctors[docIndex];
-
-        Appointment[] appointments = doc.getAppointments();
-        for (int i = 0; i < appointments.length; i++) {
-            if (appointments[i] == null) {
-                return i;
+    public static void patientMenu() {
+        System.out.println("\n---->Patient's Menu<----");
+        System.out.println("Please select from the following menu");
+        System.out.println("1. Book an appointment\n2. See all appointments\n3. Exit");
+        int y = 0;
+        while (y < 1 || y > 3) {
+            System.out.print("Enter from 1-3: ");
+            y = input.nextInt();
+            if (y < 1 || y > 3) {
+                System.out.println("Value out of range, please enter from (1-3)");
+            } else if (y == 1) {
+                Patient.bookAppointment();
+            } else if (y == 2) {
+                Patient.seeAllAppointments();
+            } else if (y == 3) {
+                break;
             }
-        }
-
-        return -1;
-    }
-
-    public static int checkPatientBandwidth() {
-        Patient pat = patients[0];
-        Appointment[] appointments = pat.getAppointments();
-        for (int i = 0; i < appointments.length; i++) {
-            if (appointments[i] == null) {
-                return i;
-            }
-        }
-
-        return -1;
-    }
-
-    public static int searchDoctor(String name) {
-        for (int i = 0; i < doctors.length; i++) {
-            Doctor doc = doctors[i];
-            if (doc != null) {
-                String docName = doc.getName();
-                if (name.toLowerCase().compareToIgnoreCase(docName.toLowerCase()) == 0) {
-                    return i;
-                }
-            }
-        }
-        return -1;
-    }
-
-    public static void seeAllAppointments() {
-        System.out.print("Please enter your name: ");
-        String name = input.next();
-        int patIndex = searchPatient(name);
-        while (patIndex == -1) {
-            System.out.println("Patient not found! Please try again");
-            System.out.print("Please enter the name of the patient: ");
-            String newName = input.next();
-            patIndex = searchPatient(newName);
-        }
-        Patient pat = patients[patIndex];
-        Appointment[] appointments = pat.getAppointments();
-        for (int i = 0; i < appointments.length; i++) {
-            System.out.println(appointments[i]);
+            System.out.println("\n---->Patient's Menu<----");
+            System.out.println("Please select from the following menu");
+            System.out.println("1. Book an appointment\n2. See all appointments\n3. Exit");
+            y = 0;
         }
     }
 
-    public static int searchPatient(String name) {
-        for (int i = 0; i < patients.length; i++) {
-            Patient pat = patients[i];
-            String patName = pat.getName();
-            if (name == patName) {
-                return i;
-            }
-        }
-        return -1;
-    }
 }
