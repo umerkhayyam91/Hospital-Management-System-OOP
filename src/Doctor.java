@@ -1,5 +1,7 @@
+import java.util.Scanner;
 
 public class Doctor extends Person {
+    static Scanner input = new Scanner(System.in);
     private String designation;
     private double experience;
     private String[] specialization;
@@ -23,6 +25,91 @@ public class Doctor extends Person {
         this.experience = experience;
         this.designation = designation;
         this.appointments = appointments;
+    }
+
+    public static int seeAllAppointmentsDoc() {
+        boolean hasAppointment = false;
+
+        int docIndex = -1;
+        while (docIndex == -1) {
+            System.out.print("Please enter your doctor id: ");
+            String docId = input.next();
+            docIndex = searchDoctorById(docId);
+
+            if (docIndex >= 0) {
+                Doctor doc = Runner.doctors[docIndex];
+                Appointment[] appointments = doc.getAppointments();
+
+                for (int i = 0; i < appointments.length; i++) {
+                    if (appointments[i] != null) {
+                        System.out.println("\n--> Here are your appointments <--");
+                        System.out.println("App. ID: " + i + 1 + "\nDoctor index: " + appointments[i].getDoctorIndex()
+                                + "\n"
+                                + "Patient index: "
+                                + appointments[i].getPatientIndex() + "\n" + "Time: " + appointments[i].getTime() + "\n"
+                                + "Status: " + appointments[i].isStatus() + "\n");
+
+                        hasAppointment = true;
+
+                    }
+                }
+                if (!hasAppointment) {
+                    System.out.println("No appointment found!!");
+                }
+
+            } else {
+                System.out.println("Invalid ID, please try again!!");
+            }
+
+        }
+
+        return docIndex;
+    }
+
+    public static int searchDoctorById(String docId) {
+        for (int i = 0; i < Runner.doctors.length; i++) {
+            Doctor doc = Runner.doctors[i];
+            if (doc != null) {
+                String id = doc.getId();
+                if (docId.toLowerCase().equals(id.toLowerCase())) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    public static void acceptAppointments() {
+        int docIndex = seeAllAppointmentsDoc();
+
+        int appId = 0;
+        while (appId < 1 || appId > 3) {
+            System.out.println("Please enter App ID of appointment you want to accept: ");
+            appId = input.nextInt();
+            int index = appId - 1;
+            updateAppointmentStatus(docIndex, index);
+        }
+
+    }
+
+    public static void updateAppointmentStatus(int appointmentIndex, int doctorIndex) {
+        Doctor doc = Runner.doctors[doctorIndex];
+        Appointment[] appointments = doc.getAppointments();
+        boolean status = appointments[appointmentIndex].isStatus();
+        if (status == false) {
+            appointments[appointmentIndex].setStatus(true);
+
+            System.out.println("App. ID: " + appointmentIndex + 1 + "\nDoctor index: "
+                    + appointments[appointmentIndex].getDoctorIndex()
+                    + "\n"
+                    + "Patient index: "
+                    + appointments[appointmentIndex].getPatientIndex() + "\n" + "Time: "
+                    + appointments[appointmentIndex].getTime()
+                    + "\n"
+                    + "Status: " + status + "\n");
+            System.out.println("--> Appointment Accepted <--");
+        }
+
     }
 
     public String[] getSpecialization() {

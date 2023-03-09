@@ -29,13 +29,13 @@ public class Patient extends Person {
 
     public static void bookAppointment() {
         System.out.print("Please enter the name of the doctor: ");
-        String name = input.next();
+        String name = input.nextLine();
         int docIndex = searchDoctor(name);
         while (docIndex == -1) {
             System.out.println("Doctor not found! Please try again");
             System.out.print("Please enter the name of the doctor: ");
-            String newName = input.next();
-            docIndex = searchDoctor(newName);
+            name = input.nextLine();
+            docIndex = searchDoctor(name);
         }
 
         System.out.println("Enter time (HH:MM:a): ");
@@ -89,7 +89,7 @@ public class Patient extends Person {
             Doctor doc = Runner.doctors[i];
             if (doc != null) {
                 String docName = doc.getName();
-                if (name.toLowerCase().compareToIgnoreCase(docName.toLowerCase()) == 0) {
+                if (name.toLowerCase().equals(docName.toLowerCase())) {
                     return i;
                 }
             }
@@ -97,7 +97,7 @@ public class Patient extends Person {
         return -1;
     }
 
-    public static void seeAllAppointments() {
+    public static void seeAllAppointmentsPat() {
         System.out.print("Please enter your name: ");
         String name = input.next();
         int patIndex = searchPatient(name);
@@ -112,7 +112,9 @@ public class Patient extends Person {
         for (int i = 0; i < appointments.length; i++) {
             if (appointments[i] != null) {
                 System.out.println("-->Here are your appointments<--");
-                System.out.println("Doctor index: " + appointments[i].getDoctorIndex() + "\n" + "Patient index: " + appointments[i].getPatientIndex() + "\n" + "Time: " + appointments[i].getTime() + "\n" + "Status: " + appointments[i].isStatus());
+                System.out.println("Doctor index: " + appointments[i].getDoctorIndex() + "\n" + "Patient index: "
+                        + appointments[i].getPatientIndex() + "\n" + "Time: " + appointments[i].getTime() + "\n"
+                        + "Status: " + appointments[i].isStatus());
             }
         }
     }
