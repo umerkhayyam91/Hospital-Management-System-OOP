@@ -4,8 +4,8 @@ public class Appointment {
     private String time;
     private boolean status;
 
-    public Appointment(){
-        
+    public Appointment() {
+
     }
 
     public Appointment(int doctorIndex, int patientIndex, String time, boolean status) {

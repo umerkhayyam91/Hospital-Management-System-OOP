@@ -9,13 +9,13 @@ public class Runner {
     public static void main(String[] args) {
 
         // Doctors
-        String[] specializations = new String[5];
+        String[] specializations = new String[3];
         doctors[0] = new Doctor("d001", "Dr1", 29, "M", "GP", 10, specializations, new Appointment[3]);
         doctors[1] = new Doctor("d002", "Dr2", 25, "F", "Gyane", 7, specializations, new Appointment[3]);
         doctors[2] = new Doctor("d003", "Dr3", 21, "F", "Dentist", 5, specializations, new Appointment[3]);
 
         // Patient
-        String[] pastDisease = new String[5];
+        String[] pastDisease = new String[3];
         patients[0] = new Patient("p001", "H", 25, "male", "8/01/1998", "single", pastDisease, new Appointment[3]);
         patients[1] = new Patient("p002", "Ahmad Ali", 23, "male", "20/01/1998", "single", pastDisease,
                 new Appointment[3]);
@@ -87,16 +87,14 @@ public class Runner {
                 Doctor.acceptAppointment();
             } else if (z == 3) {
                 Doctor.rejectAppointment();
-            }  else if (z == 4) {
+            } else if (z == 4) {
                 Doctor.deleteAppointment();
-            }else if (z != 5) {
+            } else if (z != 5) {
                 System.out.println("Value out of range, please enter from (1-5)");
             }
         }
         System.out.println("Exiting Doctor's menu!!\n");
     }
-
-    
 
     public static void adminMenu() {
 
@@ -105,13 +103,13 @@ public class Runner {
             System.out.println("\n---->Admin's Menu<----");
             System.out.println("Please select from the following menu");
             System.out.println(
-                    "1. Add doctor\n2. Add patient\n3. Edit doctor\n4. Edit patient\n5. Delete patient\n6. Delete patient\n7. Exit");
+                    "1. Add doctor\n2. Add patient\n3. Edit doctor\n4. Edit patient\n5. Delete doctor\n6. Delete patient\n7. Exit");
             System.out.print("Enter from 1-7: ");
             x = input.nextInt();
             if (x == 1) {
-
+                Admin.addDoctor();
             } else if (x == 2) {
-
+                Admin.addPatient();
             } else if (x == 3) {
 
             } else if (x == 4) {
