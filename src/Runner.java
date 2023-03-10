@@ -78,23 +78,25 @@ public class Runner {
             System.out.println("---->Doctor's Menu<----");
             System.out.println("Please select from the following menu");
             System.out.println(
-                    "1. See all appointments\n2. Accept appointments\n3. Reject appointments\n4. Delete appointments \n5. Exit");
+                    "1. See all appointments\n2. Accept appointments\n3. Reject appointments\n4. Delete appointments\n5. Exit");
             System.out.print("Enter from 1-5: ");
             z = input.nextInt();
             if (z == 1) {
-                Doctor.seeAllAppointmentsDoc();
+                Doctor.seeAllAppointmentsDoc(false);
             } else if (z == 2) {
-
+                Doctor.acceptAppointment();
             } else if (z == 3) {
-
-            } else if (z == 4) {
-
-            } else if (z != 5) {
+                Doctor.rejectAppointment();
+            }  else if (z == 4) {
+                Doctor.deleteAppointment();
+            }else if (z != 5) {
                 System.out.println("Value out of range, please enter from (1-5)");
             }
         }
         System.out.println("Exiting Doctor's menu!!\n");
     }
+
+    
 
     public static void adminMenu() {
 

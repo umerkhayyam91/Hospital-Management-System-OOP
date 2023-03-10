@@ -10,6 +10,8 @@ public class Doctor extends Person {
     public Doctor() {
     }
 
+    static Doctor empty = new Doctor();
+
     public Doctor(String designation, double experience, String[] specialization, Appointment[] appointments) {
         this.designation = designation;
         this.experience = experience;
@@ -27,7 +29,7 @@ public class Doctor extends Person {
         this.appointments = appointments;
     }
 
-    public static int seeAllAppointmentsDoc() {
+    public static int seeAllAppointmentsDoc(boolean showOnlyPending) {
         boolean hasAppointment = false;
 
         int docIndex = -1;
@@ -39,15 +41,29 @@ public class Doctor extends Person {
             if (docIndex >= 0) {
                 Doctor doc = Runner.doctors[docIndex];
                 Appointment[] appointments = doc.getAppointments();
+                System.out.println("\n--> Appointments <--");
 
                 for (int i = 0; i < appointments.length; i++) {
                     if (appointments[i] != null) {
-                        System.out.println("\n--> Here are your appointments <--");
-                        System.out.println("App. ID: " + i + 1 + "\nDoctor index: " + appointments[i].getDoctorIndex()
-                                + "\n"
-                                + "Patient index: "
-                                + appointments[i].getPatientIndex() + "\n" + "Time: " + appointments[i].getTime() + "\n"
-                                + "Status: " + appointments[i].isStatus() + "\n");
+                        if (showOnlyPending && !appointments[i].isStatus()) {
+                            System.out
+                                    .println("App. ID: " + (i + 1) + "\nDoctor index: "
+                                            + appointments[i].getDoctorIndex()
+                                            + "\n"
+                                            + "Patient index: "
+                                            + appointments[i].getPatientIndex() + "\n" + "Time: "
+                                            + appointments[i].getTime() + "\n"
+                                            + "Status: " + appointments[i].isStatus() + "\n");
+                        } else if (!showOnlyPending) {
+                            System.out
+                                    .println("App. ID: " + (i + 1) + "\nDoctor index: "
+                                            + appointments[i].getDoctorIndex()
+                                            + "\n"
+                                            + "Patient index: "
+                                            + appointments[i].getPatientIndex() + "\n" + "Time: "
+                                            + appointments[i].getTime() + "\n"
+                                            + "Status: " + appointments[i].isStatus() + "\n");
+                        }
 
                         hasAppointment = true;
 
@@ -79,15 +95,15 @@ public class Doctor extends Person {
         return -1;
     }
 
-    public static void acceptAppointments() {
-        int docIndex = seeAllAppointmentsDoc();
+    public static void acceptAppointment() {
+        int docIndex = seeAllAppointmentsDoc(true);
 
         int appId = 0;
         while (appId < 1 || appId > 3) {
             System.out.println("Please enter App ID of appointment you want to accept: ");
             appId = input.nextInt();
             int index = appId - 1;
-            updateAppointmentStatus(docIndex, index);
+            updateAppointmentStatus(index, docIndex);
         }
 
     }
@@ -99,16 +115,77 @@ public class Doctor extends Person {
         if (status == false) {
             appointments[appointmentIndex].setStatus(true);
 
-            System.out.println("App. ID: " + appointmentIndex + 1 + "\nDoctor index: "
+            System.out.println("App. ID: " + (appointmentIndex + 1) + "\nDoctor index: "
                     + appointments[appointmentIndex].getDoctorIndex()
                     + "\n"
                     + "Patient index: "
                     + appointments[appointmentIndex].getPatientIndex() + "\n" + "Time: "
                     + appointments[appointmentIndex].getTime()
                     + "\n"
-                    + "Status: " + status + "\n");
+                    + "Status: " + appointments[appointmentIndex].isStatus() + "\n");
             System.out.println("--> Appointment Accepted <--");
         }
+
+    }
+
+    public static void rejectAppointment() {
+        int docIndex = seeAllAppointmentsDoc(true);
+        int appId = 0;
+        while (appId < 1 || appId > 3) {
+            System.out.println("Please enter App ID of appointment you want to reject: ");
+            appId = input.nextInt();
+            int index = appId - 1;
+            rejectStatus(index, docIndex);
+
+        }
+
+    }
+
+    public static void rejectStatus(int appointmentIndex, int doctorIndex) {
+        Doctor doc = Runner.doctors[doctorIndex];
+        Appointment[] appointments = doc.getAppointments();
+        boolean status = appointments[appointmentIndex].isStatus();
+        if (status == false) {
+            appointments[appointmentIndex] = null;
+            System.out.println("App. ID: " + appointments[appointmentIndex] + "\nDoctor index: "
+                    + appointments[appointmentIndex]
+                    + "\n"
+                    + "Patient index: "
+                    + appointments[appointmentIndex] + "\n" + "Time: "
+                    + appointments[appointmentIndex]
+                    + "\n"
+                    + "Status: " + appointments[appointmentIndex] + "\n");
+            System.out.println("--> Appointment Rejected Successfully <--");
+        }
+
+    }
+
+    public static void deleteAppointment() {
+        int docIndex = seeAllAppointmentsDoc(false);
+        int appId = 0;
+        while (appId < 1 || appId > 3) {
+            System.out.println("Please enter App ID of appointment you want to delete: ");
+            appId = input.nextInt();
+            int index = appId - 1;
+            deleteStatus(index, docIndex);
+
+        }
+
+    }
+
+    public static void deleteStatus(int appointmentIndex, int doctorIndex) {
+        Doctor doc = Runner.doctors[doctorIndex];
+        Appointment[] appointments = doc.getAppointments();
+        appointments[appointmentIndex] = null;
+        System.out.println("App. ID: " + appointments[appointmentIndex] + "\nDoctor index: "
+                + appointments[appointmentIndex]
+                + "\n"
+                + "Patient index: "
+                + appointments[appointmentIndex] + "\n" + "Time: "
+                + appointments[appointmentIndex]
+                + "\n"
+                + "Status: " + appointments[appointmentIndex] + "\n");
+        System.out.println("--> Appointment Deleted Successfully <--");
 
     }
 
