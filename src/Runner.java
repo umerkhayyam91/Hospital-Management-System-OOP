@@ -111,9 +111,9 @@ public class Runner {
             } else if (x == 2) {
                 Admin.addPatient();
             } else if (x == 3) {
-
+                Admin.editDoctor();
             } else if (x == 4) {
-
+                Admin.editPatient();
             } else if (x == 5) {
 
             } else if (x == 6) {

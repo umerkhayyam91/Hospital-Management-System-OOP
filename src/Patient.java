@@ -98,6 +98,8 @@ public class Patient extends Person {
     }
 
     public static void seeAllAppointmentsPat() {
+        boolean ifNull = true;
+
         System.out.print("Please enter your name: ");
         String name = input.next();
         int patIndex = searchPatient(name);
@@ -115,7 +117,11 @@ public class Patient extends Person {
                 System.out.println("Doctor index: " + appointments[i].getDoctorIndex() + "\n" + "Patient index: "
                         + appointments[i].getPatientIndex() + "\n" + "Time: " + appointments[i].getTime() + "\n"
                         + "Status: " + appointments[i].isStatus());
+                        ifNull = false;
             }
+        }
+        if(ifNull){
+            System.out.println("Appointment not found!!");
         }
     }
 

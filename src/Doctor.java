@@ -70,7 +70,7 @@ public class Doctor extends Person {
                     }
                 }
                 if (!hasAppointment) {
-                    System.out.println("No appointment found!!");
+                    System.out.println("No appointment found!!\n");
                 }
 
             } else {
