@@ -28,20 +28,30 @@ public class Patient extends Person {
     }
 
     public static void bookAppointment() {
+        System.out.print("Please enter your name: ");
+        String patName = input.nextLine();
+        int patIndex = searchPat(patName);
+        while (patIndex == -1) {
+            System.out.println("Patient not found! Please try again");
+            System.out.print("Please enter the name of the patient: ");
+            patName = input.nextLine();
+            patIndex = searchPat(patName);
+        }
+
         System.out.print("Please enter the name of the doctor: ");
-        String name = input.nextLine();
-        int docIndex = searchDoctor(name);
+        String docName = input.nextLine();
+        int docIndex = searchDoctor(docName);
         while (docIndex == -1) {
             System.out.println("Doctor not found! Please try again");
             System.out.print("Please enter the name of the doctor: ");
-            name = input.nextLine();
-            docIndex = searchDoctor(name);
+            docName = input.nextLine();
+            docIndex = searchDoctor(docName);
         }
 
         System.out.println("Enter time (HH:MM:a): ");
         String time = input.next();
 
-        int patientAppointmentIndex = checkPatientBandwidth();
+        int patientAppointmentIndex = checkPatientBandwidth(patIndex);
 
         if (patientAppointmentIndex == -1) {
             System.out.println("You do not have enought bandwidth!");
@@ -56,7 +66,7 @@ public class Patient extends Person {
         }
 
         // submit appointment
-        Appointment newAppointment = new Appointment(docIndex, 0, time, false);
+        Appointment newAppointment = new Appointment(docIndex, patIndex, time, false);
         newAppointment.submitAppointment(doctorAppointmentIndex, patientAppointmentIndex);
     }
 
@@ -72,8 +82,8 @@ public class Patient extends Person {
         return -1;
     }
 
-    public static int checkPatientBandwidth() {
-        Patient pat = Runner.patients[0];
+    public static int checkPatientBandwidth(int patIndex) {
+        Patient pat = Runner.patients[patIndex];
         Appointment[] appointments = pat.getAppointments();
         for (int i = 0; i < appointments.length; i++) {
             if (appointments[i] == null) {
@@ -90,6 +100,19 @@ public class Patient extends Person {
             if (doc != null) {
                 String docName = doc.getName();
                 if (name.toLowerCase().equals(docName.toLowerCase())) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    public static int searchPat(String name) {
+        for (int i = 0; i < Runner.patients.length; i++) {
+            Patient pat = Runner.patients[i];
+            if (pat != null) {
+                String patName = pat.getName();
+                if (name.toLowerCase().equals(patName.toLowerCase())) {
                     return i;
                 }
             }
@@ -117,10 +140,10 @@ public class Patient extends Person {
                 System.out.println("Doctor index: " + appointments[i].getDoctorIndex() + "\n" + "Patient index: "
                         + appointments[i].getPatientIndex() + "\n" + "Time: " + appointments[i].getTime() + "\n"
                         + "Status: " + appointments[i].isStatus());
-                        ifNull = false;
+                ifNull = false;
             }
         }
-        if(ifNull){
+        if (ifNull) {
             System.out.println("Appointment not found!!");
         }
     }
@@ -130,7 +153,7 @@ public class Patient extends Person {
             Patient pat = Runner.patients[i];
             if (pat != null) {
                 String patName = pat.getName();
-                if (name.toLowerCase().compareToIgnoreCase(patName.toLowerCase()) == 0) {
+                if (name.toLowerCase().equals(patName.toLowerCase())) {
                     return i;
                 }
             }

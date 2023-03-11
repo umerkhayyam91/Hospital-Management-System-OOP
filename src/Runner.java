@@ -17,7 +17,7 @@ public class Runner {
         // Patient
         String[] pastDisease = new String[3];
         patients[0] = new Patient("p001", "H", 25, "male", "8/01/1998", "single", pastDisease, new Appointment[3]);
-        patients[1] = new Patient("p002", "Ahmad Ali", 23, "male", "20/01/1998", "single", pastDisease,
+        patients[1] = new Patient("p002", "A", 23, "male", "20/01/1998", "single", pastDisease,
                 new Appointment[3]);
 
         // Admins
@@ -115,9 +115,9 @@ public class Runner {
             } else if (x == 4) {
                 Admin.editPatient();
             } else if (x == 5) {
-
+                Admin.deleteDoctor();
             } else if (x == 6) {
-
+                Admin.deletePatient();
             } else if (x != 7) {
 
                 System.out.println("Value out of range, please enter from (1-7)");

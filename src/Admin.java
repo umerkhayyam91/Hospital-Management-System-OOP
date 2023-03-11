@@ -117,6 +117,31 @@ public class Admin extends Person {
         return -1;
     }
 
+    public static void deleteDoctor() {
+        System.out.print("Please enter the name of doctor: ");
+        String name = input.next();
+        int docIndex = searchDoctor(name);
+        if (docIndex == -1) {
+            System.out.println("Doctor not found, try again");
+            return;
+        }
+        Runner.doctors[docIndex] = null;
+
+        System.out.println("--> Doctor Details <--");
+        System.out.print("doctor ID: " + Runner.doctors[docIndex] + "\ndoctor name: " + Runner.doctors[docIndex]
+                + "\ndoctor age: " + Runner.doctors[docIndex]
+                + "\ndoctor gender: "
+                + Runner.doctors[docIndex] + "\ndoctor designation: " + Runner.doctors[docIndex]
+                + "\ndoctor experience: " + Runner.doctors[docIndex]
+                + "\ndoctor specializations: ");
+        for (int i = 0; i < 3; i++) {
+            System.out.print(Runner.doctors[docIndex] + "\n");
+        }
+
+        System.out.println("Doctor Deleted Successfully!!");
+
+    }
+
     public static void addPatient() {
         System.out.println("Enter patient ID: ");
         String id = input.next();
@@ -215,6 +240,31 @@ public class Admin extends Person {
 
         }
         return -1;
+    }
+
+    public static void deletePatient() {
+        System.out.print("Please enter the name of patient: ");
+        String name = input.next();
+        int patIndex = searchPatient(name);
+        if (patIndex == -1) {
+            System.out.println("patient not found, try again");
+            return;
+        }
+        Runner.patients[patIndex] = null;
+
+        System.out.println("--> Patient Details <--");
+        System.out.print("patient's ID: " + Runner.patients[patIndex] + "\npatient's name: " + Runner.patients[patIndex]
+                + "\npatient's age: " + Runner.patients[patIndex]
+                + "\npatient gender: "
+                + Runner.patients[patIndex] + "\npatient's designation: " + Runner.patients[patIndex]
+                + "\npatient's experience: " + Runner.patients[patIndex]
+                + "\npatient's specializations: ");
+        for (int i = 0; i < 3; i++) {
+            System.out.print(Runner.patients[patIndex] + "\n");
+        }
+
+        System.out.println("patient Deleted Successfully!!");
+
     }
 
     public String getDesignation() {
