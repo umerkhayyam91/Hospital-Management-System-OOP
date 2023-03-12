@@ -128,17 +128,26 @@ public class Patient extends Person {
         int patIndex = searchPatient(name);
         while (patIndex == -1) {
             System.out.println("Patient not found! Please try again");
-            System.out.print("Please enter the name of the patient: ");
+            System.out.print("Please enter the name of the patient (Press \"N\" for Main Menu): ");
             String newName = input.next();
+            if (newName.equalsIgnoreCase("N")) {
+                return;
+            }
             patIndex = searchPatient(newName);
+
         }
         Patient pat = Runner.patients[patIndex];
         Appointment[] appointments = pat.getAppointments();
         for (int i = 0; i < appointments.length; i++) {
             if (appointments[i] != null) {
+                int docIndex = appointments[i].getDoctorIndex();
+                Doctor doc = Runner.doctors[docIndex];
+                String docName = doc.getName();
+
                 System.out.println("-->Here are your appointments<--");
-                System.out.println("Doctor index: " + appointments[i].getDoctorIndex() + "\n" + "Patient index: "
-                        + appointments[i].getPatientIndex() + "\n" + "Time: " + appointments[i].getTime() + "\n"
+                System.out.println("Doctor name: " + docName
+                        + "\n" + "Patient name: "
+                        + Runner.patients[patIndex].getName() + "\n" + "Time: " + appointments[i].getTime() + "\n"
                         + "Status: " + appointments[i].isStatus());
                 ifNull = false;
             }

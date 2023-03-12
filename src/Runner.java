@@ -82,7 +82,11 @@ public class Runner {
             System.out.print("Enter from 1-5: ");
             z = input.nextInt();
             if (z == 1) {
-                Doctor.seeAllAppointmentsDoc(false);
+                int index = Doctor.seeAllAppointmentsDoc(false);
+                if (index == -1) {
+                    return;
+                }
+
             } else if (z == 2) {
                 Doctor.acceptAppointment();
             } else if (z == 3) {

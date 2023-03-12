@@ -36,6 +36,9 @@ public class Doctor extends Person {
         while (docIndex == -1) {
             System.out.print("Please enter your doctor id: ");
             String docId = input.next();
+            if (docId.equalsIgnoreCase("N")) {
+                return -1;
+            }
             docIndex = searchDoctorById(docId);
 
             if (docIndex >= 0) {
@@ -66,11 +69,12 @@ public class Doctor extends Person {
                         }
 
                         hasAppointment = true;
-
+                         
                     }
                 }
                 if (!hasAppointment) {
                     System.out.println("No appointment found!!\n");
+                    return -1;
                 }
 
             } else {
@@ -130,6 +134,9 @@ public class Doctor extends Person {
 
     public static void rejectAppointment() {
         int docIndex = seeAllAppointmentsDoc(true);
+        if(docIndex == -1){
+            return;
+        }
         int appId = 0;
         while (appId < 1 || appId > 3) {
             System.out.println("Please enter App ID of appointment you want to reject: ");
