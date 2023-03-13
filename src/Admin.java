@@ -32,7 +32,7 @@ public class Admin extends Person {
         double experience = input.nextDouble();
         String[] specializations = new String[3];
         System.out.println("Enter doctor specializations: ");
-        for (int i = 0; i <= specializations.length; i++) {
+        for (int i = 0; i < 3; i++) {
             String spec = input.nextLine();
 
             specializations[i] = spec;
@@ -48,7 +48,7 @@ public class Admin extends Person {
                         + "\ndoctor gender: "
                         + gender + "\ndoctor designation:" + docDesignation + "\ndoctor experience: " + experience
                         + "\ndoctor specializations: ");
-                for (i = 0; i <= specializations.length; i++) {
+                for (i = 0; i < 3; i++) {
                     System.out.println(specializations[i]);
                 }
                 System.out.println("Doctor Added Successfully!!");
@@ -123,11 +123,30 @@ public class Admin extends Person {
         int docIndex = searchDoctor(name);
         if (docIndex == -1) {
             System.out.println("Doctor not found, try again");
-            return;
-        }
-        Runner.doctors[docIndex] = null;
+            System.out.print("Please enter the name of the patient (Press \"N\" for Main Menu): ");
+            name = input.next();
+            if (name.equalsIgnoreCase("N")) {
+                return;
+            }
+            docIndex = searchDoctor(name);
 
+        }
+
+        Doctor doc = Runner.doctors[docIndex];
+        System.out.println("This doctor is being deleted");
         System.out.println("--> Doctor Details <--");
+        System.out.print("doctor ID: " + doc.getId() + "\ndoctor name: " + doc.getName()
+                + "\ndoctor age: " + doc.getAge()
+                + "\ndoctor gender: "
+                + doc.getGender() + "\ndoctor designation: " + doc.getDesignation()
+                + "\ndoctor experience: " + doc.getExperience()
+                + "\ndoctor specializations: ");
+        for (int i = 0; i < 3; i++) {
+            System.out.print(Runner.doctors[docIndex].getSpecialization() + "\n");
+        }
+        System.out.println();
+        Runner.doctors[docIndex] = null;
+        System.out.println("--> Deleted Doctor Details <--");
         System.out.print("doctor ID: " + Runner.doctors[docIndex] + "\ndoctor name: " + Runner.doctors[docIndex]
                 + "\ndoctor age: " + Runner.doctors[docIndex]
                 + "\ndoctor gender: "
@@ -159,7 +178,7 @@ public class Admin extends Person {
         System.out.println("Enter patient pastDiseases: ");
         String[] pastDiseases = new String[3];
 
-        for (int i = 0; i <= pastDiseases.length; i++) {
+        for (int i = 0; i < 3; i++) {
             String spec = input.nextLine();
             pastDiseases[i] = spec;
         }
@@ -174,7 +193,7 @@ public class Admin extends Person {
                         + gender + "\npatient's dateOfBirth:" + dateOfBirth + "\npatient's martialStatus: "
                         + martialStatus
                         + "\npatient's pastDiseases: ");
-                for (i = 0; i <= pastDiseases.length; i++) {
+                for (i = 0; i < 3; i++) {
                     System.out.println(pastDiseases[i]);
                 }
                 System.out.println("patient Added Successfully!!");
@@ -248,11 +267,28 @@ public class Admin extends Person {
         int patIndex = searchPatient(name);
         if (patIndex == -1) {
             System.out.println("patient not found, try again");
-            return;
+            System.out.print("Please enter the name of the patient (Press \"N\" for Main Menu): ");
+            name = input.next();
+            if (name.equalsIgnoreCase("N")) {
+                return;
+            }
+            patIndex = searchPatient(name);
         }
-        Runner.patients[patIndex] = null;
-
+        Patient doc = Runner.patients[patIndex];
+        System.out.println("This Patient is being deleted");
         System.out.println("--> Patient Details <--");
+        System.out.print("Patient ID: " + doc.getId() + "\nPatient name: " + doc.getName()
+                + "\nPatient age: " + doc.getAge()
+                + "\nPatient gender: "
+                + doc.getGender() + "\nPatient dateOfBirth: " + doc.getDateOfBirth()
+                + "\nPatient martialStatus: " + doc.getMartialStatus()
+                + "\nPatient pastDiseases: ");
+        for (int i = 0; i < 3; i++) {
+            System.out.print(Runner.patients[patIndex].getPastDiseases() + "\n");
+        }
+        System.out.println();
+        Runner.patients[patIndex] = null;
+        System.out.println("--> Deleted Patient Details <--");
         System.out.print("patient's ID: " + Runner.patients[patIndex] + "\npatient's name: " + Runner.patients[patIndex]
                 + "\npatient's age: " + Runner.patients[patIndex]
                 + "\npatient gender: "
@@ -263,7 +299,7 @@ public class Admin extends Person {
             System.out.print(Runner.patients[patIndex] + "\n");
         }
 
-        System.out.println("patient Deleted Successfully!!");
+        System.out.println("Patient Deleted Successfully!!");
 
     }
 

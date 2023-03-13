@@ -34,7 +34,7 @@ public class Doctor extends Person {
 
         int docIndex = -1;
         while (docIndex == -1) {
-            System.out.print("Please enter your doctor id: ");
+            System.out.print("Please enter your doctor id (Press \"N\" for Main Menu): ");
             String docId = input.next();
             if (docId.equalsIgnoreCase("N")) {
                 return -1;
@@ -69,7 +69,7 @@ public class Doctor extends Person {
                         }
 
                         hasAppointment = true;
-                         
+
                     }
                 }
                 if (!hasAppointment) {
@@ -101,7 +101,9 @@ public class Doctor extends Person {
 
     public static void acceptAppointment() {
         int docIndex = seeAllAppointmentsDoc(true);
-
+        if (docIndex == -1) {
+            return;
+        }
         int appId = 0;
         while (appId < 1 || appId > 3) {
             System.out.println("Please enter App ID of appointment you want to accept: ");
@@ -134,7 +136,7 @@ public class Doctor extends Person {
 
     public static void rejectAppointment() {
         int docIndex = seeAllAppointmentsDoc(true);
-        if(docIndex == -1){
+        if (docIndex == -1) {
             return;
         }
         int appId = 0;
@@ -169,6 +171,9 @@ public class Doctor extends Person {
 
     public static void deleteAppointment() {
         int docIndex = seeAllAppointmentsDoc(false);
+        if (docIndex == -1) {
+            return;
+        }
         int appId = 0;
         while (appId < 1 || appId > 3) {
             System.out.println("Please enter App ID of appointment you want to delete: ");
